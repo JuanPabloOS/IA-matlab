@@ -1,0 +1,46 @@
+## imprimir los datos de entrada, salida y pesos de una nuerona
+## Entradas
+## x vector d eentradas
+## w vector de pesos
+## yd vector de salidas esperada
+## y vector de salidas calculadas
+## Author: alejandro <alejandro@alejandro-Inspiron-5559>
+## Created: 2020-02-27
+
+function [] = imprimirDatosNeuronaAdaline(x, w, yd, y)
+  numPatrones = size(x, 1);
+  numEntradas = size(x, 2);
+  epsilon = 0.001;
+  
+  fprintf('---------------------------------------\n');
+  fprintf('Neurona Adaline\n');
+  fprintf('---------------------------------------\n');
+  
+  fprintf('Pesos');
+  for i = 1:numEntradas
+     fprintf(' w%1d = %5.2f', i, w(i));
+  end
+  fprintf('\n');
+  
+  fprintf('Patron');
+  for i = 1:numEntradas
+     fprintf(' x%1d', i);
+  end
+  fprintf('   yd     yc\n');
+  fprintf('===========================================\n');
+  numOk = 0;
+  for i = 1:numPatrones
+    fprintf('%4d.-', i);
+     for j = 1:numEntradas
+       fprintf('%2d ', x(i, j));
+     end
+     if (abs(yd(i) - y(i)) < epsilon)
+        fprintf('%5.2f   %5.2f \n', yd(i), y(i));
+        numOk = numOk + 1;
+     else
+        fprintf('%5.2f   %5.2f*\n', yd(i), y(i));
+     end
+  end
+  
+  fprintf("exactitud: %5.2f %%\n\n", (numOk / numPatrones) * 100);
+end
